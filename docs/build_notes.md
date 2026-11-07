@@ -14,13 +14,17 @@ An update was interrupted partway, which left dpkg half-configured. Each repair 
 
 The original `best.pt` was deleted, and the only surviving notebook held just the download cell. Colab's revision history still contained the training script, so we retrained with the same settings (60 epochs, 640 px, batch 16). The script's label lookup assumed labels sat next to their images, which was wrong for this dataset, so we matched images and labels by filename. The weights are now stored on a GitHub release and in Drive.
 
-## Ultrasonic crosstalk
+## Ultrasonic crosstalk and noise
 
-Reading three sensors back to back produced false readings. We poll them one at a time with a 30 ms gap, take the median of three samples per reading, and keep the minimum of the last three results per sensor.
+Reading three sensors back to back produced false readings. We poll them one at a time with a 40 ms gap, take the median of three samples per reading, and report the median of the last six readings. A sensor shows "clear" until at least four of them are valid.
 
 ## Detection speed
 
-YOLOv8n on the Pi 4B's CPU runs at about 2.4 FPS at 416 px. The robot drives at 30% duty so it does not overshoot a target between frames.
+YOLOv8n on the Pi 4B's CPU runs at about 2.4 FPS at 416 px. We moved detection into its own thread so driving and obstacle avoidance do not wait for the model, and the robot acts on the last detection for up to 1.4 seconds.
+
+## Trash read as an obstacle
+
+When trash is very close, the center sensor can read it as an obstacle at 20 cm or less, and the robot backs away instead of picking it up. This is the main cause of failed pickups. The fix we would try is to ignore the center sensor while a centered target is large and low in the frame.
 
 ## Left and right labeling
 
