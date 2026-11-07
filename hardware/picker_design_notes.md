@@ -56,7 +56,6 @@ This spins the picker for 10 seconds and exits. Do it with the robot lifted or t
 
 | Issue | Effect |
 |:---|:---|
-| Center sensor reads close trash as an obstacle (20 cm or less) | The robot backs away before the picker starts, which caused most failed pickups. |
 | Clear or dark plastic is detected less reliably | The robot may not approach, or may lose the target. |
 | Picker timing is fixed | It runs 5 seconds whether or not the item was caught. |
 
