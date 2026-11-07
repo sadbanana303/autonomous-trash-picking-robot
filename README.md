@@ -4,7 +4,7 @@
 
 A four-wheeled robot that finds plastic litter with a webcam, drives toward it, and picks it up with a handmade PVC gripper. A Raspberry Pi 4B runs everything on its CPU: YOLOv8n detection, three HC-SR04 ultrasonic sensors, and motor control through three BTS7960 drivers.
 
-Demo video: [YOUTUBE LINK]
+Demo video: https://youtu.be/uc-HQsVwEf8
 
 ![Robot](docs/media/hero.jpg)
 
