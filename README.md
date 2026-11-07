@@ -119,7 +119,6 @@ Per-class results for the four target classes:
 
 - Detection is least reliable for clear or dark plastic and for small, distant items.
 - The low frame rate means the robot reacts slowly, and it acts on the last detection for up to 1.4 seconds.
-- The ultrasonic sensors sit above the floor. A target very close to the robot can read as an obstacle at 20 cm or less, so the robot may back away instead of picking it up.
 - The robot has no map. Searching is a slow forward creep.
 - Results come from a small test (5 attempts), not a controlled benchmark.
 - The video stream has no authentication, so anyone on the same network can view it.
