@@ -59,3 +59,9 @@ This spins the picker for 10 seconds and exits. Do it with the robot lifted or t
 | Center sensor reads close trash as an obstacle (20 cm or less) | The robot backs away before the picker starts, which caused most failed pickups. |
 | Clear or dark plastic is detected less reliably | The robot may not approach, or may lose the target. |
 | Picker timing is fixed | It runs 5 seconds whether or not the item was caught. |
+
+## Ramp
+
+A hinged ramp lets the picker slide items onto the robot. The hinges are the 3D-printed parts listed above.
+
+The ramp is made of acrylic sheet. It is 26 cm long and 4 cm wide. It is connected to the robot using the #D printed hinge as mentioned. The picker slides the item up the ramp as it turns. 
