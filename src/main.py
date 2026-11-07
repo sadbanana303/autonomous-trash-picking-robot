@@ -33,7 +33,7 @@ CAMERA_INDEX = 0
 CAMERA_WIDTH = 640
 CAMERA_HEIGHT = 480
 
-CONFIDENCE_THRESHOLD = 0.18
+CONFIDENCE_THRESHOLD = 0.12
 YOLO_IMGSZ = 416
 
 TARGET_CLASSES = [
@@ -465,7 +465,7 @@ try:
             area = target["area"]
 
             # Only start when trash is truly close
-            if y2 >= BOTTOM_EXIT_Y and centered:
+            if area >= PICKUP_AREA and y2 >= BOTTOM_EXIT_Y and centered:
                 pickup_while_moving()
                 continue
 

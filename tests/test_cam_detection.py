@@ -18,8 +18,7 @@ MODEL_PATH = "/home/miringa222/best.pt"
 CAMERA_INDEX = 0
 W, H = 640, 480
 CONF = 0.35
-TARGET_CLASSES = ["Other plastic", "Plastic bag - wrapper",
-                  "Plastic container", "Unlabeled litter"]
+TARGET_CLASSES = ["Other plastic", "Plastic bag - wrapper", "Plastic container", "Unlabeled litter"]
 
 out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 os.makedirs(out_dir, exist_ok=True)
@@ -42,7 +41,7 @@ try:
             print("Frame read failed")
             break
         frames += 1
-        result = model(frame, conf=CONF, verbose=False)[0]
+        result = model(frame, conf=0.15, imgsz=320, verbose=False)[0]
         hit = False
         for box in result.boxes:
             name = model.names[int(box.cls[0])]
