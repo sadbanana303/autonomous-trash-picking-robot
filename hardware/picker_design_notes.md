@@ -6,8 +6,8 @@ The gripper is a section of PVC pipe driven by one DC motor through a BTS7960 dr
 
 | Property | Value |
 |:---|:---|
-| Pipe diameter and length | 6cm and 27 cm |
-| Motor attachment | 3D printed shafts that are screwed onto DC motor on one side, simple laced in cardboard on the other side to freely rotate |
+| Pipe diameter and length | 6 cm and 27 cm |
+| Motor attachment | 3D printed shafts that are screwed onto DC motor on one side, simply placed in cardboard on the other side to freely rotate |
 | Grip surface | Zip ties |
 | Driver | BTS7960 on Pi pins 38 (RPWM) and 40 (LPWM) |
 | Handles | Lightweight plastic wrappers |
