@@ -60,7 +60,7 @@ PICKUP_FORWARD_TIME = 2.0          # keep moving forward while picking
 EXIT_WINDOW = 2.8
 LOST_GRACE = 1.4
 
-PICKER_TIME = 5.0
+PICKER_TIME = 10.0
 AFTER_PICK_DELAY = 0.6
 
 
@@ -465,7 +465,7 @@ try:
             area = target["area"]
 
             # Only start when trash is truly close
-            if area >= PICKUP_AREA and y2 >= BOTTOM_EXIT_Y and centered:
+            if y2 >= BOTTOM_EXIT_Y and centered:
                 pickup_while_moving()
                 continue
 
