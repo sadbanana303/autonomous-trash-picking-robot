@@ -22,10 +22,6 @@ Reading three sensors back to back produced false readings. We poll them one at 
 
 YOLOv8n on the Pi 4B's CPU runs at about 2.4 FPS at 416 px. We moved detection into its own thread so driving and obstacle avoidance do not wait for the model, and the robot acts on the last detection for up to 1.4 seconds.
 
-## Trash read as an obstacle
-
-When trash is very close, the center sensor can read it as an obstacle at 20 cm or less, and the robot backs away instead of picking it up. This is the main cause of failed pickups. The fix we would try is to ignore the center sensor while a centered target is large and low in the frame.
-
 ## Left and right labeling
 
 Our hand-drawn pin map is labeled as seen facing the robot, so its left and right are mirrored relative to the robot's own sides. The code uses the robot's own sides. Pins 32 and 33 drive the robot's left wheels, which the drawing calls the right-side driver. We kept both conventions and documented the mapping in `wiring.md` rather than renaming pins in working code.
