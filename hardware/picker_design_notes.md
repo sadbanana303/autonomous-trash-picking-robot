@@ -19,8 +19,8 @@ The gripper is a section of PVC pipe driven by one DC motor through a BTS7960 dr
 
 | Part | Purpose | File |
 |:---|:---|:---|
-| Shaft coupling | Joins the motor shaft to the PVC pipe | [`cad/SHAFT-FILE-NAME.stl`](cad/shaft.stl) |
-| Ramp hinges | Let the ramp pivot so picked items slide onto the robot | [`cad/HINGE-FILE-NAME.stl`](cad/hinge_picker.stl) |
+| Shaft coupling | Joins the motor shaft to the PVC pipe | [`cad/SHAFT-FILE-NAME.stl`](cad/shaftprint.stl) |
+| Ramp hinges | Let the ramp pivot so picked items slide onto the robot | [`cad/HINGE-FILE-NAME.stl`](cad/hingepicker.stl) |
 
 Both parts were modeled in Fusion 360 and 3D printed.
 
