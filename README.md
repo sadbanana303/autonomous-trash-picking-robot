@@ -10,18 +10,19 @@ Demo video: https://youtu.be/uc-HQsVwEf8
 
 ## How it works
 
-The control loop in `src/main.py` runs once per camera frame.
+The control code in `src/main.py` runs three parts at once.
 
-1. Each webcam frame is resized to 416 px and passed through a YOLOv8n model fine-tuned on the TACO litter dataset, which runs at about 2.4 FPS on the Pi's CPU.
-2. Of the detections in four target classes (Other plastic, Plastic bag - wrapper, Plastic container, Unlabeled litter), the robot picks the one with the largest bounding box.
-3. If the target sits left or right of a central band (x between 250 and 390 px in a 640 px frame), the robot turns toward it.
-4. If the target is centered, the robot drives forward. The left and right ultrasonic sensors steer it away from obstacles closer than 20 cm, and it stops if both sides are blocked.
-5. When the center sensor reads 15 cm or less with the target centered, the robot stops and runs the picker motor for 3 seconds.
-6. With no target in view, the robot stops.
+- **Vision thread.** Each webcam frame is resized to 416 px and passed through a YOLOv8n model fine-tuned on the TACO litter dataset, at about 2.4 FPS on the Pi's CPU. Of the detections in six target classes (Other plastic, Plastic bag - wrapper, Plastic container, Unlabeled litter, Other litter, Paper), it keeps the one with the largest bounding box.
+- **Sensor thread.** Three ultrasonic sensors are polled in turn with a 40 ms gap to limit crosstalk. Each reported distance is the median of the last six readings, and a sensor reports "clear" until at least four are valid.
+- **Main loop.** Each cycle follows this priority order:
 
-A background thread polls the three sensors in turn with a 30 ms gap to limit crosstalk and keeps the minimum of the last three readings per sensor. A Flask server streams the annotated camera feed, with bounding boxes, center line and sensor readings, at `http://<pi-ip>:5000/video`.
+1. **Avoid obstacles.** If a side sensor reads 20 cm or less, or the center sensor reads 20 cm or less, the robot reverses briefly and turns away. A cooldown of one second prevents repeated maneuvers.
+2. **Pick up.** If the target is centered (x between 220 and 420 px), its box area is at least 65,000 px², and its bottom edge has reached the red line near the bottom of the frame, the robot drives forward for 2 seconds while the picker runs for 5, then backs up slightly.
+3. **Approach.** Otherwise the robot turns toward a target outside the center band, or drives forward if it is centered.
+4. **Catch a lost target.** The camera cannot see items directly under it. If a target was seen within the last 2.8 seconds and has just left the bottom of the frame, the picker runs anyway.
+5. **Search.** With no target, the robot creeps forward at low speed.
 
-Pickup is triggered by the center ultrasonic sensor only. The camera-area trigger exists in the code but is disabled (`PICKUP_AREA = 10**9`), because bounding-box area varies too much between object types to serve as a distance estimate.
+The ultrasonic sensors never trigger the picker. They sit above the floor and cannot see small items on the ground, so they are used for obstacle avoidance only. A Flask server streams the annotated camera feed, with boxes, center line, pickup line and sensor readings, at `http://<pi-ip>:5000/video`.
 
 ## Hardware
 
@@ -67,8 +68,11 @@ python tests/test_motors.py
 python tests/test_picker.py
 python tests/test_ultrasonic.py
 python tests/test_cam_detection.py
+python src/main.py picker
 python src/main.py
+
 ```
+Running main.py with the argument picker spins the picker for 5 seconds and exits, which tests the gripper alone.
 
 Stop `main.py` with Ctrl+C. It stops the motors and releases the GPIO pins on exit.
 
@@ -114,16 +118,17 @@ Per-class results for the four target classes:
 ## Limitations
 
 - Detection is least reliable for clear or dark plastic and for small, distant items.
-- The low frame rate means the robot moves slowly.
+- The low frame rate means the robot reacts slowly, and it acts on the last detection for up to 1.4 seconds.
+- The ultrasonic sensors sit above the floor. A target very close to the robot can read as an obstacle at 20 cm or less, so the robot may back away instead of picking it up.
+- The robot has no map. Searching is a slow forward creep.
 - Results come from a small test (5 attempts), not a controlled benchmark.
 - The video stream has no authentication, so anyone on the same network can view it.
-- The robot only reacts to what is in view. It has no map and does not search.
 
 ## Future work
 
 - Run the model on an accelerator or export it to a faster runtime to raise the frame rate.
-- Replace the single-sensor pickup trigger with a calibrated distance estimate.
-- Add a search behavior for when nothing is in view.
+- Ignore the center sensor when a centered target is close, so nearby trash is not treated as an obstacle.
+- Replace the forward creep with a real search pattern.
 
 ## Authors
 
