@@ -41,7 +41,7 @@ try:
             print("Frame read failed")
             break
         frames += 1
-        result = model(frame, conf=0.15, imgsz=320, verbose=False)[0]
+        result = model(frame, imgsz=416, conf=0.15, imgsz=320, verbose=False)[0]
         hit = False
         for box in result.boxes:
             name = model.names[int(box.cls[0])]
