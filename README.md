@@ -6,7 +6,7 @@ A four-wheeled robot that finds plastic litter with a webcam, drives toward it, 
 
 Demo video: https://youtu.be/uc-HQsVwEf8
 
-![Robot](docs/media/hero.jpg)
+![Robot](docs/media/hero.jpeg)
 
 ## How it works
 
