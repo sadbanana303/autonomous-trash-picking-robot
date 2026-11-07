@@ -1,16 +1,22 @@
 """
 Autonomous trash-picking robot (Raspberry Pi 4B).
 
-Loop, repeated every frame:
-  1. Read a webcam frame and run the YOLO model (best.pt).
-  2. Pick the largest detected box in TARGET_CLASSES.
-  3. If it is left or right of the center band, turn toward it.
-  4. If centered, drive forward, steering away from side obstacles.
-  5. If the center sensor reads <= PICKUP_DISTANCE_CM, stop and run the picker.
-  6. If no target is visible, stop.
+Vision thread: reads webcam frames, runs YOLO (best.pt) at 416 px, keeps the
+largest box in TARGET_CLASSES, and publishes the annotated frame to a Flask
+stream at http://PI_IP:5000/video.
+Sensor thread: polls three ultrasonic sensors and publishes median-filtered
+distances.
 
-A background thread polls three ultrasonic sensors. A Flask server streams
-the annotated camera feed at http://PI_IP:5000/video.
+Main loop, in priority order:
+  1. Obstacle avoidance: reverse and turn away from anything close ahead
+     or on either side.
+  2. If the target is centered, its box area >= PICKUP_AREA and its bottom
+     edge has reached BOTTOM_EXIT_Y, drive forward while running the picker.
+  3. Otherwise steer toward the target (turn left or right, or drive forward
+     if it is centered).
+  4. If the target just left the bottom of the frame, run the picker anyway.
+  5. With no target, creep forward slowly to search.
+
 Pin numbers use BOARD numbering. See docs/wiring.md.
 """
 import sys
