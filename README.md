@@ -33,7 +33,7 @@ The ultrasonic sensors never trigger the picker. They sit above the floor and ca
 | BTS7960 motor drivers | 3 | Left side, right side, picker |
 | HC-SR04 ultrasonic sensors | 3 | Left, center and right ranging |
 | USB webcam | 1 | Detection |
-| Acrylic sheet, cardboard, PVC pipe, zip ties | n/a | Chassis and gripper |
+| Acrylic sheet, cardboard, PVC pipe, zip ties, 3D-printed shaft and ramp hinges | n/a | Chassis and gripper |
 
 Pin map: [docs/wiring.md](docs/wiring.md). Parts and cost: [docs/bill_of_materials.md](docs/bill_of_materials.md). Gripper: [hardware/picker_design_notes.md](hardware/picker_design_notes.md).
 
@@ -45,7 +45,7 @@ Pin map: [docs/wiring.md](docs/wiring.md). Parts and cost: [docs/bill_of_materia
 | `src/ultrasonic.py` | HC-SR04 driver |
 | `tests/` | Manual bring-up scripts (not a pytest suite) |
 | `docs/` | Wiring, parts list, build notes, media |
-| `hardware/` | Gripper design notes |
+| `hardware/` | Gripper notes and CAD files (Fusion 360) |
 
 ## Setup
 
