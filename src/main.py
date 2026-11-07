@@ -284,7 +284,7 @@ def vision_loop():
             time.sleep(0.04)
             continue
 
-        result = model(frame, conf=CONFIDENCE_THRESHOLD,
+        result = model(frame, imgsz=416, conf=CONFIDENCE_THRESHOLD,
                        imgsz=YOLO_IMGSZ, verbose=False)[0]
 
         target = None
