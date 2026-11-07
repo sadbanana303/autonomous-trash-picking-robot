@@ -126,7 +126,6 @@ Per-class results for the four target classes:
 ## Future work
 
 - Run the model on an accelerator or export it to a faster runtime to raise the frame rate.
-- Ignore the center sensor when a centered target is close, so nearby trash is not treated as an obstacle.
 - Replace the forward creep with a real search pattern.
 
 ## Authors
