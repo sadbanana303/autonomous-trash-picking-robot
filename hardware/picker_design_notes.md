@@ -7,13 +7,22 @@ The gripper is a section of PVC pipe driven by one DC motor through a BTS7960 dr
 | Property | Value |
 |:---|:---|
 | Pipe diameter and length | 6 cm and 27 cm |
-| Motor attachment | 3D printed shafts that are screwed onto DC motor on one side, simply placed in cardboard on the other side to freely rotate |
+| Motor attachment | 3D-printed shaft coupling, see [`cad/`](cad/) Screwed onto the DC Motor|
 | Grip surface | Zip ties |
 | Driver | BTS7960 on Pi pins 38 (RPWM) and 40 (LPWM) |
 | Handles | Lightweight plastic wrappers |
 | Cannot handle | very small pieces of trash, very large pieces of trash |
 
 ![Picker](../docs/media/picker_closeup.jpeg)
+
+## 3D-printed parts
+
+| Part | Purpose | File |
+|:---|:---|:---|
+| Shaft coupling | Joins the motor shaft to the PVC pipe | [`cad/SHAFT-FILE-NAME.stl`](cad/shaft.stl) |
+| Ramp hinges | Let the ramp pivot so picked items slide onto the robot | [`cad/HINGE-FILE-NAME.stl`](cad/hinge_picker.stl) |
+
+Both parts were modeled in Fusion 360 and 3D printed.
 
 ## When it runs
 
